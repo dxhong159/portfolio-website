@@ -408,7 +408,7 @@ export default function AboutPage() {
                       <div>
                         <h3 className="font-bold">Dinh Xuan Hong</h3>
                         <p className="text-sm text-muted-foreground">
-                          Front-end Developer
+                          Fullsatck Developer
                         </p>
                       </div>
                       <Badge className="bg-primary text-primary-foreground flex gap-1 items-center">

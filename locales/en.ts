@@ -15,7 +15,7 @@ const enTranslations = {
   hero: {
     greeting: "Hello, I'm",
     name: "Dinh Xuan Hong",
-    role: "Front-end Developer",
+    role: "Fullsatck Developer",
     description:
       "A passionate developer with a strong interest in technology, logical problem-solving, and artificial intelligence.",
     viewProjects: "View Projects",
@@ -26,7 +26,7 @@ const enTranslations = {
     title: "My Skills",
     subtitle:
       "I specialize in creating clean, efficient, and user-friendly web experiences with a focus on mobile-first design.",
-    frontend: "Front-end",
+    frontend: "Fullsatck",
     backend: "Back-end & Database",
     design: "Design Tools",
     languages: "Languages",
@@ -105,7 +105,7 @@ const enTranslations = {
   },
   footer: {
     description:
-      "A passionate Front-end Developer creating modern and responsive web experiences.",
+      "A passionate Fullsatck Developer creating modern and responsive web experiences.",
     quickLinks: "Quick Links",
     contact: "Contact Info",
     rights: "All Rights Reserved.",

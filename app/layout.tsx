@@ -13,14 +13,14 @@ const inter = Inter({ subsets: ["latin"] });
 const siteUrl = "https://dinhhong.vercel.app"; // Điền URL trang web của bạn
 
 export const metadata: Metadata = {
-  title: "Dinh Xuan Hong | Front-end Developer",
-  description: "Portfolio of Dinh Xuan Hong, a passionate Front-end Developer",
+  title: "Dinh Xuan Hong | Fullstack Developer",
+  description: "Portfolio of Dinh Xuan Hong, a passionate Fullstack Developer",
   generator: "v0.dev",
   metadataBase: new URL(siteUrl),
   openGraph: {
-    title: "Dinh Xuan Hong | Front-end Developer",
+    title: "Dinh Xuan Hong | Fullstack Developer",
     description:
-      "Portfolio of Dinh Xuan Hong, a passionate Front-end Developer",
+      "Portfolio of Dinh Xuan Hong, a passionate Fullstack Developer",
     url: siteUrl,
     siteName: "Dinh Xuan Hong Portfolio",
     locale: "en_US",
@@ -36,9 +36,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dinh Xuan Hong | Front-end Developer",
+    title: "Dinh Xuan Hong | Fullstack Developer",
     description:
-      "Portfolio of Dinh Xuan Hong, a passionate Front-end Developer",
+      "Portfolio of Dinh Xuan Hong, a passionate Fullstack Developer",
     images: ["/emoji.png"],
     creator: "@dinhhong",
   },

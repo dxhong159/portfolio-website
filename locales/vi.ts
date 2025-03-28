@@ -15,7 +15,7 @@ const viTranslations = {
   hero: {
     greeting: "Xin chào, tôi là",
     name: "Đinh Xuân Hồng",
-    role: "Lập trình viên Front-end",
+    role: "Lập trình viên Fullsatck",
     description:
       "Một lập trình viên đam mê với sự quan tâm mạnh mẽ đến công nghệ, giải quyết vấn đề logic và trí tuệ nhân tạo.",
     viewProjects: "Xem dự án",
@@ -26,7 +26,7 @@ const viTranslations = {
     title: "Kỹ năng của tôi",
     subtitle:
       "Tôi chuyên tạo ra trải nghiệm web sạch, hiệu quả và thân thiện với người dùng, tập trung vào thiết kế ưu tiên cho thiết bị di động.",
-    frontend: "Front-end",
+    frontend: "Fullsatck",
     backend: "Back-end & Cơ sở dữ liệu",
     design: "Công cụ thiết kế",
     languages: "Ngôn ngữ",
@@ -104,7 +104,7 @@ const viTranslations = {
   },
   footer: {
     description:
-      "Một lập trình viên Front-end đam mê tạo ra trải nghiệm web hiện đại và responsive.",
+      "Một lập trình viên Fullsatck đam mê tạo ra trải nghiệm web hiện đại và responsive.",
     quickLinks: "Liên kết nhanh",
     contact: "Thông tin liên hệ",
     rights: "Đã đăng ký Bản quyền.",
