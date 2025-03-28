@@ -11,7 +11,19 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Send, Loader2, Sparkles, X, ChevronDown } from "lucide-react";
+import {
+  Send,
+  Loader2,
+  Sparkles,
+  X,
+  ChevronDown,
+  Phone,
+  Mail,
+  MessageSquare,
+  Github,
+  Linkedin,
+  Facebook,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import ReactMarkdown from "react-markdown";
@@ -25,6 +37,73 @@ type Message = {
   content: string;
   role: "user" | "assistant";
   timestamp: Date;
+};
+
+// Interface for contact button props with icon selection
+interface ContactButtonProps {
+  href: string;
+  text: string;
+  variant?: "default" | "outline" | "secondary";
+  icon?: "phone" | "mail" | "messenger" | "github" | "linkedin" | "facebook";
+}
+
+// Component for rendering contact buttons with appropriate icons
+const ContactButton = ({
+  href,
+  text,
+  variant = "default",
+  icon,
+}: ContactButtonProps) => {
+  // Map of icons to their components
+  const iconComponents = {
+    phone: <Phone className="mr-2 h-4 w-4" />,
+    mail: <Mail className="mr-2 h-4 w-4" />,
+    messenger: <MessageSquare className="mr-2 h-4 w-4" />,
+    github: <Github className="mr-2 h-4 w-4" />,
+    linkedin: <Linkedin className="mr-2 h-4 w-4" />,
+    facebook: <Facebook className="mr-2 h-4 w-4" />,
+  };
+
+  return (
+    <Button
+      variant={variant}
+      asChild
+      className="mt-2 mr-2 shadow-sm hover:shadow-md transition-all"
+      size="sm"
+    >
+      <a href={href} target="_blank" rel="noopener noreferrer">
+        {icon && iconComponents[icon]}
+        {text}
+      </a>
+    </Button>
+  );
+};
+
+// Component for rendering a group of contact buttons
+const ContactButtons = () => {
+  const { language } = useLanguage();
+
+  return (
+    <div className="flex flex-wrap gap-2 mt-3 mb-1">
+      <ContactButton
+        href="tel:+84967910188"
+        text={language === "vi" ? "Gọi điện" : "Call"}
+        icon="phone"
+      />
+      <ContactButton
+        href="mailto:gfw.dinhong@gmail.com"
+        text="Email"
+        icon="mail"
+        variant="outline"
+      />
+      <ContactButton
+        href="https://m.me/dino.it.me"
+        text={language === "vi" ? "Messenger" : "Messenger"}
+        icon="messenger"
+        variant="secondary"
+      />
+    </div>
+  );
 };
 
 export function AIChat() {
@@ -187,11 +266,89 @@ export function AIChat() {
     }, 300);
   };
 
-  // Đây là style mới cho tin nhắn
+  // Style for message bubbles
   const getMessageStyle = (role: string) => {
     return role === "user"
       ? "bg-gradient-to-r from-primary to-primary/90 text-primary-foreground"
       : "bg-gradient-to-r from-background/90 to-muted/90 border border-border shadow-sm";
+  };
+
+  // Check if the message contains contact information
+  const hasContactInfo = (content: string): boolean => {
+    // Check for common contact request patterns
+    const contactKeywords =
+      language === "vi"
+        ? [
+            "liên hệ",
+            "liên lạc",
+            "thông tin liên hệ",
+            "email",
+            "số điện thoại",
+            "facebook",
+            "gọi",
+            "nhắn tin",
+          ]
+        : [
+            "contact",
+            "reach",
+            "get in touch",
+            "email",
+            "phone",
+            "call",
+            "message",
+          ];
+
+    const lowercaseContent = content.toLowerCase();
+    return contactKeywords.some((keyword) =>
+      lowercaseContent.includes(keyword)
+    );
+  };
+
+  // Check if the message appears to be asking for contact info
+  const isContactQuestion = (content: string): boolean => {
+    const contactQuestions =
+      language === "vi"
+        ? [
+            "liên hệ",
+            "liên lạc",
+            "gặp",
+            "gọi",
+            "liên kết",
+            "email",
+            "điện thoại",
+            "nhắn tin",
+          ]
+        : [
+            "contact",
+            "reach",
+            "talk",
+            "call",
+            "links",
+            "email",
+            "phone",
+            "get in touch",
+            "message",
+          ];
+
+    const questionIndicators = [
+      "?",
+      "như thế nào",
+      "làm sao",
+      "làm thế nào",
+      "how",
+      "what",
+      "where",
+      "could",
+      "can",
+    ];
+
+    const lowercaseContent = content.toLowerCase();
+
+    // Check if contains both a question indicator and contact keyword
+    return (
+      questionIndicators.some((q) => lowercaseContent.includes(q)) &&
+      contactQuestions.some((c) => lowercaseContent.includes(c))
+    );
   };
 
   // Placeholder text based on language
@@ -278,7 +435,7 @@ export function AIChat() {
             >
               <ScrollArea className="h-[60vh] px-4">
                 <div className="flex flex-col gap-4 py-4">
-                  {messages.map((message) => (
+                  {messages.map((message, index) => (
                     <div
                       key={message.id}
                       className={`flex ${
@@ -300,7 +457,6 @@ export function AIChat() {
                               src="/logo_pi.png"
                               alt="PI Logo"
                               className="object-cover p-0.5 rounded-full"
-                              
                             />
                             <AvatarFallback className="bg-gradient-to-br from-primary to-primary/70 z-40">
                               AI
@@ -316,18 +472,67 @@ export function AIChat() {
                             <ReactMarkdown
                               rehypePlugins={[rehypeRaw, rehypeSanitize]}
                               components={{
-                                a: ({ node, ...props }) => (
-                                  <a
-                                    {...props}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={`underline ${
-                                      message.role === "user"
-                                        ? "text-primary-foreground/90"
-                                        : "text-primary"
-                                    }`}
-                                  />
-                                ),
+                                a: ({ node, ...props }) => {
+                                  // Special handling for phone links
+                                  if (props.href?.startsWith("tel:")) {
+                                    return (
+                                      <ContactButton
+                                        href={props.href}
+                                        text={
+                                          (props.children?.[0] as string) ||
+                                          (language === "vi"
+                                            ? "Gọi điện"
+                                            : "Call")
+                                        }
+                                        icon="phone"
+                                      />
+                                    );
+                                  }
+
+                                  // Special handling for email links
+                                  if (props.href?.startsWith("mailto:")) {
+                                    return (
+                                      <ContactButton
+                                        href={props.href}
+                                        text={
+                                          (props.children?.[0] as string) ||
+                                          "Email"
+                                        }
+                                        icon="mail"
+                                        variant="outline"
+                                      />
+                                    );
+                                  }
+
+                                  // Special handling for messenger links
+                                  if (props.href?.includes("m.me/")) {
+                                    return (
+                                      <ContactButton
+                                        href={props.href}
+                                        text={
+                                          (props.children?.[0] as string) ||
+                                          "Messenger"
+                                        }
+                                        icon="messenger"
+                                        variant="secondary"
+                                      />
+                                    );
+                                  }
+
+                                  // Regular links
+                                  return (
+                                    <a
+                                      {...props}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className={`underline ${
+                                        message.role === "user"
+                                          ? "text-primary-foreground/90"
+                                          : "text-primary"
+                                      }`}
+                                    />
+                                  );
+                                },
                                 code: ({ node, ...props }) => (
                                   <code
                                     {...props}
@@ -344,6 +549,22 @@ export function AIChat() {
                             >
                               {message.content}
                             </ReactMarkdown>
+
+                            {/* Add contact buttons if the assistant message contains contact info */}
+                            {message.role === "assistant" &&
+                              hasContactInfo(message.content) &&
+                              !message.content.includes("href") && (
+                                <ContactButtons />
+                              )}
+
+                            {/* Add contact buttons if the previous message was asking for contact info */}
+                            {message.role === "assistant" &&
+                              index > 0 &&
+                              messages[index - 1].role === "user" &&
+                              isContactQuestion(messages[index - 1].content) &&
+                              !message.content.includes("href") && (
+                                <ContactButtons />
+                              )}
                           </div>
                         </div>
                       </div>

@@ -86,15 +86,46 @@ export async function POST(request: NextRequest) {
         ? `Định dạng gọn gàng bằng Markdown. Tối đa 3-5 câu cho mỗi câu trả lời.`
         : `Format cleanly with Markdown. Maximum 3-5 sentences per answer.`;
 
+    // Detailed contact information for Hong Dinh
+    const contactInfo =
+      language === "vi"
+        ? `
+### Thông tin liên hệ của Hong:
+- **Email:** gfw.dinhong@gmail.com
+- **Số điện thoại:** (+84) 0967910188
+- **Địa chỉ:** Hà Nội, Việt Nam
+- **Facebook:** https://www.facebook.com/dino.it.me
+- **LinkedIn:** https://www.linkedin.com/in/h%E1%BB%93ng-%C4%91inh-548b941b5
+- **GitHub:** https://github.com/dxhong159
+- **Messenger:** https://m.me/dino.it.me
+
+Khi người dùng hỏi về cách liên hệ, luôn cung cấp email và số điện thoại, và nếu phù hợp, đề xuất họ có thể liên hệ qua Messenger bằng cách nhấn vào liên kết. Sử dụng markdown để hiển thị nút liên kết: "[Nhắn tin ngay](https://m.me/dino.it.me)" hoặc "[Gọi điện ngay](tel:+84967910188)".
+`
+        : `
+### Hong's Contact Information:
+- **Email:** gfw.dinhong@gmail.com
+- **Phone:** (+84) 0967910188
+- **Location:** Hanoi, Vietnam
+- **Facebook:** https://www.facebook.com/dino.it.me
+- **LinkedIn:** https://www.linkedin.com/in/h%E1%BB%93ng-%C4%91inh-548b941b5
+- **GitHub:** https://github.com/dxhong159
+- **Messenger:** https://m.me/dino.it.me
+
+When users ask about contacting, always provide email and phone number, and if appropriate, suggest they can contact via Messenger by clicking the link. Use markdown to display link buttons: "[Message Now](https://m.me/dino.it.me)" or "[Call Now](tel:+84967910188)".
+`;
+
     // Prepare a concise prompt focused on Hong's information
     const prompt = `Bạn là trợ lý thông tin về Hong Dinh - một full-stack developer. Hãy trả lời câu hỏi sau: "${message}"
 
 Thông tin về Hong: 
 - Chuyên môn: React, Next.js, Flutter, ASP.NET, Firebase
 - Dự án: PinkAI Chatbot, Vinled Website, Phone Sales Management, IMEI Management, E-commerce
+- Website: https://dinhhong.vercel.app
+${contactInfo}
 - Quan trọng: ${languageInstructions}
-
 ${markdownInstructions}
+
+Nếu người dùng hỏi về thông tin liên hệ, hãy trả lời với đầy đủ thông tin và cách liên hệ trực tiếp với các nút nhấn bằng markdown. Người dùng có thể nhấn vào các liên kết đó để liên hệ với Hong.
 
 Chỉ trả lời ngắn gọn với thông tin liên quan trực tiếp đến câu hỏi. Nếu câu hỏi không liên quan đến Hong, trả lời là bạn chỉ có thông tin về Hong Dinh.`;
 
