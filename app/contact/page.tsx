@@ -171,10 +171,10 @@ export default function ContactPage() {
                 </div>
                 <h3 className="text-lg font-medium">{t("contact.email")}</h3>
                 <a
-                  href="mailto:gfwdinhhong@gmail.com"
+                  href="mailto:gfw.dinhhong@gmail.com"
                   className="text-primary hover:underline mt-1 text-sm"
                 >
-                  gfwdinhhong@gmail.com
+                  gfw.dinhhong@gmail.com
                 </a>
               </div>
 
